@@ -1,0 +1,124 @@
+global listOfAccs
+listOfAccs={}
+def GetIntValue():
+    global Konto
+    while True:
+        try:
+            print()
+            print("0:Avsluta")
+            print()
+            Konto = int(input("Ange kontonummer:"))
+            return Konto    
+        except:
+            print("Fel:Kontonummer kan inte innehålla bokstav")
+
+def SkapaKonto():
+        print()
+        print("***************-Skapa konto-***************")
+        while True:
+            GetIntValue()
+            if Konto in listOfAccs:
+                print()
+                print("<Kontonummer tagen>")
+            elif Konto==0:
+                break
+            else:
+                listOfAccs[Konto]=0
+                break
+
+def AdministreraKonto():
+    print()
+    print("***************-Administrera konto-***************")
+    while True:
+        GetIntValue()
+        if Konto in listOfAccs:
+            menyAdministrera()
+        elif Konto == 0:
+            break
+        else:
+            print("Konto finns ej")
+
+def PengarOut():
+    IntPengarUt()
+    Saldo = int(listOfAccs[Konto])
+    if utPengar > Saldo:
+            print()
+            print("<<<<<<<<<<Inte tillräckligt med saldo>>>>>>>>>>")
+            print()
+    else:
+            minusPengar=Saldo - utPengar
+            listOfAccs[Konto]=minusPengar
+
+def IntPengarUt():
+    global utPengar
+    while True:
+        try:
+            utPengar = int(input("Hur mycket vill du ta ut: "))
+            return utPengar
+        except:
+            print()
+            print("Fel:Bokstäver ej tillåtet")
+
+def PengarIn():
+    IntPengarIn()
+    Saldo = int(listOfAccs[Konto])
+    plusPengar=Saldo + inPengar
+    listOfAccs[Konto]=plusPengar
+
+def IntPengarIn():
+    global inPengar
+    while True:
+        try:
+            inPengar = int(input("Hur mycket vill du sätta in: "))
+            return inPengar
+        except:
+            print()
+            print("*Fel:Bokstäver ej tillåtet*")
+
+def VisaSaldo():
+    global Saldo
+    Saldo = int(listOfAccs[Konto])
+    print()
+    print("***************-Nuvarande saldo-***************")
+    print("Saldo:",Saldo)
+
+def menyAdministrera():
+    while True:
+        print()
+        print("***************-KONTOMENY***************-konto:",Konto)
+        print("1:Ta ut pengar")
+        print("2:Sätt in pengar")
+        print("3:Visa saldo")
+        print("0:Avsluta")
+        print()
+        selection = input("Ange menyval>")
+        print()
+        if selection == "1":
+            PengarOut()
+        elif selection == "2":
+            PengarIn()
+        elif selection == "3":
+            VisaSaldo()
+        elif selection == "0":
+            return
+        else:
+            print()
+            print("Felaktig inmatning")
+
+while True:
+        print()
+        print("***************-Meny-***************")
+        print("1. Skapa konto")
+        print("2. Administrera konto")
+        print("0. Avsluta")
+        print()
+        selection = input("Ange menyval>")
+        if selection == "1":
+            SkapaKonto()
+        elif selection == "2":
+                AdministreraKonto()
+        elif selection == "0":
+                    break
+        else:
+            print()
+            print("Felaktig inmatning")
